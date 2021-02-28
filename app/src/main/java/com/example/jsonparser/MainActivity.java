@@ -79,7 +79,6 @@ public class MainActivity extends AppCompatActivity {
     public void try_hash() {
         jsonArray = get_json();
 
-      //  hash_obj[][] hashrr = new hash_obj[103650][];
         JSONObject object = null;
         String meaning = "";
         try {
@@ -265,7 +264,6 @@ public class MainActivity extends AppCompatActivity {
 
             json = new String(buffer,"UTF-8");
             jsonArray = new JSONArray(json);
-            //System.out.println(jsonArray.length()+ "value of length");
             for(int i =0; i<jsonArray.length();i++){
                 JSONObject obj = jsonArray.getJSONObject(i);
 
