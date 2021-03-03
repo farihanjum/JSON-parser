@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     TextView meaning;
     Button click ;
     String word=null;
+    ImageView clickbutton;
 
 
 
@@ -42,14 +44,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         search =findViewById(R.id.search);
         meaning =findViewById(R.id.meaning);
-        click = findViewById(R.id.clickk);
+        clickbutton = findViewById(R.id.searchbutton);
         try_hash();
         countSecHash(jsonArray);
 
-        click.setOnClickListener(new View.OnClickListener() {
+        clickbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                word =search.getText().toString();
+                word =search.getText().toString().toLowerCase();
                 int val= searchWord(word);
                 String Peace = wordMeaning(val);
                 System.out.println(Peace );
