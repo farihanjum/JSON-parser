@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -53,6 +54,10 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 word =search.getText().toString().toLowerCase();
                 int val= searchWord(word);
+                if(val == 0){
+                    Toast.makeText(getApplicationContext(),"Word not found!!",Toast.LENGTH_SHORT).show();
+
+                }
                 String Peace = wordMeaning(val);
                 System.out.println(Peace );
                 meaning.setText(Peace);
@@ -64,19 +69,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void try_hash() {
         jsonArray = get_json();
-
-        JSONObject object = null;
-        String meaning = "";
-        try {
-            object = jsonArray.getJSONObject(22);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            meaning = object.getString("en");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
 
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject obj = null;
@@ -91,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+
             long keyyy = countKey(enWord, 256);
             int hashValueKey = countPrimaryHash(keyyy);
             hash_obj[] hashValueKeyArr = hashArray[hashValueKey];
@@ -111,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
                 hashValueKeyArr = new hash_obj[hashValueKeyArraylist.size()];
                 hashValueKeyArraylist.toArray(hashValueKeyArr);
                 hashArray[hashValueKey] = null;
-                hashArray[hashValueKey] = hashValueKeyArr;//103087
+                hashArray[hashValueKey] = hashValueKeyArr;
 
             }
         }
@@ -155,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
         }
     
     public int searchWord(String s){
-        int index;
+        int index=0;
         int countSHash=0;
         long k = countKey(s,radix);
         System.out.println();
