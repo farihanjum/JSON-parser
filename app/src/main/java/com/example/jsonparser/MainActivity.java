@@ -53,14 +53,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 word =search.getText().toString().toLowerCase();
-                int val= searchWord(word);
-                if(val == 0){
+                String val= searchWord(word);
+                if(val == null ){
                     Toast.makeText(getApplicationContext(),"Word not found!!",Toast.LENGTH_SHORT).show();
 
                 }
-                String Peace = wordMeaning(val);
-                System.out.println(Peace );
-                meaning.setText(Peace);
+                //String Peace = wordMeaning(val);
+                //System.out.println(Peace );
+                meaning.setText(val);
 
             }
         });
@@ -77,9 +77,11 @@ public class MainActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            String enWord = null;
+            String enWord = null ,bnWord = null ;
+
             try {
                 enWord = obj.getString("en");
+                bnWord = obj.getString("bn");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -92,14 +94,14 @@ public class MainActivity extends AppCompatActivity {
             }
 
             if (hashValueKeyArr[0] == null) {
-                hashValueKeyArr[0] = new hash_obj(keyyy, i);
+                hashValueKeyArr[0] = new hash_obj(keyyy, bnWord);
                 hashArray[hashValueKey] = new hash_obj[1];
                 hashArray[hashValueKey] = hashValueKeyArr;
 
             } else {
 
                 ArrayList<hash_obj> hashValueKeyArraylist = new ArrayList<hash_obj>(Arrays.asList(hashValueKeyArr));
-                hash_obj collidedObj = new hash_obj(keyyy, i);
+                hash_obj collidedObj = new hash_obj(keyyy, bnWord);
                 hashValueKeyArraylist.add(collidedObj);
                 hashValueKeyArr = new hash_obj[hashValueKeyArraylist.size()];
                 hashValueKeyArraylist.toArray(hashValueKeyArr);
@@ -147,16 +149,16 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     
-    public int searchWord(String s){
-        int index=0;
+    public String searchWord(String s){
+        String meaning= null ;
         int countSHash=0;
         long k = countKey(s,radix);
         System.out.println();
         int countphash = countPrimaryHash(k);
         if(hashArray[countphash].length > 1 )
             countSHash = secondaryValuesSaved[countphash].countSecondHashValue(prime,k);
-        index = hashArray[countphash][countSHash].val;
-        return index;
+        meaning = hashArray[countphash][countSHash].val;
+        return meaning;
     }
     public long countKey(String word,long radix){
         int len = word.length()-1;
@@ -195,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
         return hashValue_of_Key;
     }
 
-    public String wordMeaning(int index) {
+    /*public String wordMeaning(int index) {
         JSONObject obj = null;
         try {
             obj = jsonArray.getJSONObject(index);
@@ -209,6 +211,6 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         return meaning;
-    }
+    }*/
 
 }
