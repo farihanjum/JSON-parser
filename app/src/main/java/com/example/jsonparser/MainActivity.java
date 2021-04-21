@@ -58,10 +58,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"Word not found!!",Toast.LENGTH_SHORT).show();
 
                 }
-                //String Peace = wordMeaning(val);
-                //System.out.println(Peace );
                 meaning.setText(val);
-
             }
         });
     }
@@ -77,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+
             String enWord = null ,bnWord = null ;
 
             try {
@@ -160,6 +158,7 @@ public class MainActivity extends AppCompatActivity {
         meaning = hashArray[countphash][countSHash].val;
         return meaning;
     }
+
     public long countKey(String word,long radix){
         int len = word.length()-1;
         long key=0L;
@@ -169,6 +168,7 @@ public class MainActivity extends AppCompatActivity {
         }
         return key;
     }
+
     public JSONArray get_json(){
         String json;
         JSONArray jsonArray = null;
@@ -197,20 +197,5 @@ public class MainActivity extends AppCompatActivity {
         return hashValue_of_Key;
     }
 
-    /*public String wordMeaning(int index) {
-        JSONObject obj = null;
-        try {
-            obj = jsonArray.getJSONObject(index);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        String meaning = null;
-        try {
-            meaning = obj.getString("bn");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return meaning;
-    }*/
 
 }
